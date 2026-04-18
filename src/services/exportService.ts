@@ -18,12 +18,22 @@ interface ExportData {
   pos: string[];
   psos: string[];
   cos: string[];
+  objectives: string[];
+  teachingProcess: string[];
+  referenceBooks: string[];
+  eResources: string[];
+  activities: string[];
+  rationale: string;
   mapping: number[][];
   lessonPlan: LessonEntry[];
 }
 
 export const exportToWord = async (data: ExportData) => {
-  const { collegeName, department, subjectName, subjectCode, semester, pos, psos, cos, mapping, lessonPlan } = data;
+  const { 
+    collegeName, department, subjectName, subjectCode, semester, 
+    pos, psos, cos, objectives, teachingProcess, 
+    referenceBooks, eResources, activities, rationale, mapping, lessonPlan 
+  } = data;
 
   const doc = new Document({
     sections: [
@@ -72,6 +82,25 @@ export const exportToWord = async (data: ExportData) => {
 
           new Paragraph({ text: "", spacing: { after: 400 } }),
 
+          // Course Objectives
+          new Paragraph({ text: "Course Objectives", heading: HeadingLevel.HEADING_2, spacing: { after: 200 } }),
+          ...objectives.map((obj) => new Paragraph({
+            text: obj,
+            bullet: { level: 0 },
+            spacing: { after: 120 },
+          })),
+
+          new Paragraph({ text: "", spacing: { after: 400 } }),
+
+          // Teaching-Learning Process
+          new Paragraph({ text: "Teaching-Learning Process", heading: HeadingLevel.HEADING_2, spacing: { after: 200 } }),
+          ...teachingProcess.map((tp, i) => new Paragraph({
+            text: `${i + 1}. ${tp}`,
+            spacing: { after: 120 },
+          })),
+
+          new Paragraph({ text: "", spacing: { after: 400 } }),
+
           // Course Outcomes
           new Paragraph({ text: "Course Outcomes", heading: HeadingLevel.HEADING_2, spacing: { after: 200 } }),
           ...cos.map((co, i) => new Paragraph({
@@ -85,9 +114,27 @@ export const exportToWord = async (data: ExportData) => {
           new Paragraph({ text: "", spacing: { after: 400 } }),
 
           // Assessment Strategy
-          new Paragraph({ text: "Assessment Strategy", heading: HeadingLevel.HEADING_2, spacing: { after: 200 } }),
-          new Paragraph({ text: "• CIE: 50% (25 Tests, 25 Assignments)", bullet: { level: 0 } }),
-          new Paragraph({ text: "• SEE: 50% (100 scaled to 50)", bullet: { level: 0 } }),
+          new Paragraph({ text: "Assessment Details", heading: HeadingLevel.HEADING_2, spacing: { after: 200 } }),
+          new Paragraph({ text: "The weightage of Continuous Internal Evaluation (CIE) is 50% and for Semester End Exam (SEE) is 50%. The minimum passing mark for the CIE is 40% of the maximum marks (20 marks out of 50) and for the SEE minimum passing mark is 35% of the maximum marks (18 out of 50 marks)." }),
+          new Paragraph({ text: "• CIE: 50% Weightage (25 Marks Tests, 25 Marks Assignments)", bullet: { level: 0 } }),
+          new Paragraph({ text: "• SEE: 50% Weightage (100 Marks scaled to 50)", bullet: { level: 0 } }),
+
+          new Paragraph({ text: "", spacing: { after: 400 } }),
+
+          // Activity Based Learning
+          new Paragraph({ text: "Activity Based Learning", heading: HeadingLevel.HEADING_2, spacing: { after: 200 } }),
+          ...activities.map(act => new Paragraph({ text: act, bullet: { level: 0 }, spacing: { after: 120 } })),
+
+          new Paragraph({ text: "", spacing: { after: 400 } }),
+
+          // Learning Resources
+          new Paragraph({ text: "Learning Resources", heading: HeadingLevel.HEADING_2, spacing: { after: 200 } }),
+          new Paragraph({ children: [new TextRun({ text: "Textbook:", bold: true })] }),
+          new Paragraph({ text: "John E Hopcroft, Rajeev Motwani, Jeffrey D. Ullman, \"Introduction to Automata Theory, Languages and Computation\", 2nd Edition, Pearson.", spacing: { after: 120 } }),
+          new Paragraph({ children: [new TextRun({ text: "Reference Books:", bold: true })] }),
+          ...referenceBooks.map(book => new Paragraph({ text: book, bullet: { level: 0 }, spacing: { after: 80 } })),
+          new Paragraph({ children: [new TextRun({ text: "E-Resources:", bold: true })], spacing: { before: 120 } }),
+          ...eResources.map(link => new Paragraph({ text: link, bullet: { level: 0 } })),
 
           new Paragraph({ children: [new PageBreak()] }),
 
@@ -113,6 +160,20 @@ export const exportToWord = async (data: ExportData) => {
               })),
             ],
           }),
+
+          new Paragraph({ text: "", spacing: { after: 400 } }),
+          new Paragraph({ text: "Program Specific Outcomes (PSOs)", heading: HeadingLevel.HEADING_2 }),
+          ...psos.map((pso, i) => new Paragraph({
+            children: [
+              new TextRun({ text: `PSO${i + 1}: `, bold: true }),
+              new TextRun({ text: pso }),
+            ],
+            spacing: { after: 120 },
+          })),
+
+          new Paragraph({ text: "", spacing: { after: 400 } }),
+          new Paragraph({ text: "Mapping Rationale", heading: HeadingLevel.HEADING_2 }),
+          new Paragraph({ text: rationale }),
 
           new Paragraph({ children: [new PageBreak()] }),
 

@@ -59,6 +59,46 @@ const COS = [
   "Explain concepts of decidability and undecidability."
 ];
 
+const OBJECTIVES = [
+  "Introduce core concepts in Automata and Theory of Computation.",
+  "Identify different Formal Language Classes and their Relationships.",
+  "Learn concepts of Grammars and Recognizers for different formal languages.",
+  "Prove or disprove theorems in automata theory using their properties.",
+  "Determine the decidability and intractability of Computational problems."
+];
+
+const TEACHING_PROCESS = [
+  "Lecturer method (L) needs not to be only a traditional lecture method, but alternative effective teaching methods could be adopted to attain the outcomes.",
+  "Use of Video/Animation to explain functioning of various concepts.",
+  "Encourage collaborative (Group Learning) Learning in the class.",
+  "Ask at least three HOT (Higher order Thinking) questions in the class, which promotes critical thinking.",
+  "Adopt Problem Based Learning (PBL), which fosters students' Analytical skills, develop design thinking skills such as the ability to design, evaluate, generalize, and analyse information rather than simply recall it.",
+  "Introduce Topics in manifold representations.",
+  "Show the different ways to solve the same problem with different approaches and encourage the students to come up with their own creative ways to solve them.",
+  "Discuss how every concept can be applied to the real world - and when that's possible, it helps improve the students' understanding."
+];
+
+const REFERENCE_BOOKS = [
+  "Elain Rich, \"Automata, Computability and complexity\", 1st Edition, Pearson Education, 2018.",
+  "K.L.P Mishra, N Chandrashekaran, 3rd Edition, \"Theory of Computer Science\", PHI, 2012.",
+  "Peter Linz, \"An introduction to Formal Languages and Automata\", 3rd Edition, Narosa Publishers, 1998.",
+  "Michael Sipser : Introduction to the Theory of Computation, 3rd edition, Cengage learning, 2013.",
+  "John C Martin, Introduction to Languages and The Theory of Computation, 3rd Edition, Tata McGraw –Hill Publishing Company Limited, 2013."
+];
+
+const E_RESOURCES = [
+  "https://archive.nptel.ac.in/courses/106/105/106105196/",
+  "https://archive.nptel.ac.in/courses/106/106/106106049/",
+  "https://nptelvideos.com/course.php?id=717"
+];
+
+const ACTIVITIES = [
+  "Open source tools (like JFLAP) to make teaching and learning more interactive.",
+  "Assignments at RBTL-4 (Analyze level) worth 15 marks."
+];
+
+const MAPPING_RATIONALE = "The Theory of Computation is highly mapped to PO1, PO2, and PO3 as it forms the mathematical backbone for algorithm design and problem analysis. CO3 and CO4 have high correlations with PSO1 (Design of intelligent systems) as automata theory is fundamental to parsing and sequence modelling in AI/ML tasks.";
+
 const MAPPING = [
   // PO1, PO2, PO3, PO4, PO5, PO6, PO7, PO8, PO9, PO10, PO11, PO12, PSO1, PSO2
   [3, 3, 2, 0, 2, 0, 0, 0, 1, 0, 0, 1, 2, 0], // CO1: DFA/NFA + JFLAP
@@ -150,6 +190,12 @@ const Sidebar = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab:
       pos: POS,
       psos: PSOS,
       cos: COS,
+      objectives: OBJECTIVES,
+      teachingProcess: TEACHING_PROCESS,
+      referenceBooks: REFERENCE_BOOKS,
+      eResources: E_RESOURCES,
+      activities: ACTIVITIES,
+      rationale: MAPPING_RATIONALE,
       mapping: MAPPING,
       lessonPlan: LESSON_PLAN,
     });
@@ -302,6 +348,24 @@ const Handout = () => (
     </div>
 
     <section className="mb-12">
+      <h3 className="text-lg font-serif italic border-b-2 border-zinc-900 inline-block mb-4">Course Objectives</h3>
+      <ul className="list-disc list-inside text-sm text-zinc-700 space-y-2">
+        {OBJECTIVES.map((obj, i) => (
+          <li key={i}>{obj}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section className="mb-12">
+      <h3 className="text-lg font-serif italic border-b-2 border-zinc-900 inline-block mb-4">Teaching-Learning Process</h3>
+      <ul className="list-decimal list-inside text-sm text-zinc-700 space-y-2">
+        {TEACHING_PROCESS.map((tp, i) => (
+          <li key={i}>{tp}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section className="mb-12">
       <h3 className="text-lg font-serif italic border-b-2 border-zinc-900 inline-block mb-4">Course Outcomes</h3>
       <div className="space-y-4">
         {COS.map((co, i) => (
@@ -325,23 +389,52 @@ const Handout = () => (
       </div>
     </section>
 
-    <section>
+    <section className="mb-12">
+      <h3 className="text-lg font-serif italic border-b-2 border-zinc-900 inline-block mb-4">Activity Based Learning</h3>
+      <ul className="list-disc list-inside text-sm text-zinc-700 space-y-2">
+        {ACTIVITIES.map((act, i) => (
+          <li key={i}>{act}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section className="mb-12">
       <h3 className="text-lg font-serif italic border-b-2 border-zinc-900 inline-block mb-4">Learning Resources</h3>
-      <div className="space-y-4">
-        <div className="p-4 border border-zinc-200 rounded-lg">
-          <p className="text-[10px] uppercase font-bold text-zinc-400 mb-1">Textbook</p>
-          <p className="text-sm text-zinc-800">John E Hopcroft, Rajeev Motwani, Jeffrey D. Ullman, "Introduction to Automata Theory, Languages and Computation", 2nd Edition, Pearson.</p>
+      <div className="space-y-6">
+        <div>
+          <p className="text-[10px] uppercase font-bold text-zinc-400 mb-2">Textbook</p>
+          <div className="p-4 border border-zinc-200 rounded-lg">
+            <p className="text-sm text-zinc-800">John E Hopcroft, Rajeev Motwani, Jeffrey D. Ullman, "Introduction to Automata Theory, Languages and Computation", 2nd Edition, Pearson.</p>
+          </div>
         </div>
-        <div className="p-4 border border-zinc-200 rounded-lg">
-          <p className="text-[10px] uppercase font-bold text-zinc-400 mb-1">E-Resources</p>
-          <a 
-            href="https://archive.nptel.ac.in/courses/106/105/106105196/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-sm text-blue-600 underline hover:text-blue-800"
-          >
-            https://archive.nptel.ac.in/courses/106/105/106105196/
-          </a>
+        
+        <div>
+          <p className="text-[10px] uppercase font-bold text-zinc-400 mb-2">Reference Books</p>
+          <div className="space-y-2">
+            {REFERENCE_BOOKS.map((book, i) => (
+              <div key={i} className="p-3 border border-zinc-100 rounded-lg">
+                <p className="text-xs text-zinc-700">{book}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="text-[10px] uppercase font-bold text-zinc-400 mb-2">E-Resources</p>
+          <div className="space-y-2">
+            {E_RESOURCES.map((link, i) => (
+              <div key={i} className="p-3 border border-zinc-100 rounded-lg">
+                <a 
+                  href={link}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs text-blue-600 underline hover:text-blue-800 break-all"
+                >
+                  {link}
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -496,7 +589,7 @@ const MappingMatrix = () => (
       <div>
         <h4 className="text-xs uppercase font-bold text-zinc-400 mb-4 tracking-widest font-mono">Mapping Rationale</h4>
         <p className="text-xs text-zinc-500 leading-relaxed">
-          The Theory of Computation is highly mapped to PO1, PO2, and PO3 as it forms the mathematical backbone for algorithm design and problem analysis. CO3 and CO4 have high correlations with PSO1 (Design of intelligent systems) as automata theory is fundamental to parsing and sequence modelling in AI/ML tasks.
+          {MAPPING_RATIONALE}
         </p>
       </div>
     </div>
