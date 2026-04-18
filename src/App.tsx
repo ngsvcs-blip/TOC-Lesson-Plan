@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+import { exportToWord } from './services/exportService';
+
 // --- Types ---
 interface LessonEntry {
   hour: number;
@@ -138,8 +140,19 @@ const Sidebar = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab:
     { id: 'mapping', label: 'CO-PO Mapping', icon: Table },
   ];
 
-  const handlePrint = () => {
-    window.print();
+  const handleExportWord = async () => {
+    await exportToWord({
+      collegeName: COLLEGE_NAME,
+      department: DEPARTMENT,
+      subjectName: SUBJECT_NAME,
+      subjectCode: SUBJECT_CODE,
+      semester: SEMESTER,
+      pos: POS,
+      psos: PSOS,
+      cos: COS,
+      mapping: MAPPING,
+      lessonPlan: LESSON_PLAN,
+    });
   };
 
   return (
@@ -177,11 +190,11 @@ const Sidebar = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab:
           <p className="text-xs font-medium text-blue-900 leading-tight">{COLLEGE_NAME}</p>
         </div>
         <button 
-          onClick={handlePrint}
+          onClick={handleExportWord}
           className="w-full flex items-center justify-center gap-2 bg-white border border-zinc-300 rounded-lg px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors active:scale-95"
         >
-          <Printer size={16} />
-          Export PDF
+          <FileText size={16} />
+          Export Word (.docx)
         </button>
       </div>
     </div>
