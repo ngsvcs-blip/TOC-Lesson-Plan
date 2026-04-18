@@ -508,18 +508,49 @@ export default function App() {
       </main>
 
       {/* Static Consolidated View - Visible ONLY during print */}
-      <div className="hidden print:block print:p-8 space-y-12 bg-white">
-        <div className="break-after-page"><Handout /></div>
-        <div className="break-after-page"><MappingMatrix /></div>
-        <div className="space-y-12">
-          <SectionHeader title="Lesson Plan" subtitle="Session Sequence by Module" />
-          <LessonPlanTable />
+      <div className="hidden print:block bg-white">
+        <div className="print-content-wrapper mx-auto max-w-[210mm]">
+          <div className="p-8 break-after-page min-h-screen">
+            <Handout />
+          </div>
+          <div className="p-8 break-after-page min-h-screen">
+            <MappingMatrix />
+          </div>
+          <div className="p-8 space-y-12 min-h-screen">
+            <div className="text-center mb-10">
+              <h2 className="text-4xl font-serif italic text-zinc-900 mb-2">Lesson Plan</h2>
+              <p className="text-sm font-mono text-zinc-400 uppercase tracking-widest">Full Session Sequence</p>
+            </div>
+            <LessonPlanTable />
+          </div>
         </div>
       </div>
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=JetBrains+Mono:wght@400;500;700&display=swap');
         
+        @page {
+          size: A4;
+          margin: 15mm;
+        }
+
+        @media print {
+          body {
+            background-color: white !important;
+            -webkit-print-color-adjust: exact;
+          }
+          .shadow-xl, .shadow-2xl, .shadow-lg, .shadow-sm {
+            box-shadow: none !important;
+            border: 1px solid #e4e4e7 !important;
+          }
+          .bg-zinc-50 {
+            background-color: #fafafa !important;
+          }
+          .break-inside-avoid {
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+        }
         body {
           font-family: 'Inter', sans-serif;
         }
